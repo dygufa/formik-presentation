@@ -1,0 +1,89 @@
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+export const SimpleForm = () => {
+    const style = {
+        debug: {
+            textAlign: "left",
+            fontSize: "0.5em"
+        },
+        input: {
+            padding: "5px",
+            fontSize: "1em",
+            display: "block"
+        },
+        input_error: {
+            borderColor: "#f00",
+            borderWidth: "5px"
+        },
+        button: {
+            padding: "5px",
+            fontSize: "0.8em",
+            margin: "5px"
+        }
+    };
+    return (
+        <Formik
+            initialValues={{ email: '' }}
+            onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
+                }, 500);
+            }}
+            validationSchema={Yup.object().shape({
+                email: Yup.string()
+                    .email('Email inválido')
+                    .required('Você não pode deixar em branco!'),
+            })}
+        >
+            {props => {
+                const {
+                    values,
+                    touched,
+                    errors,
+                    dirty,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    handleReset,
+                } = props;
+                return (
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            style={errors.email && touched.email ? Object.assign({}, style.input_error, style.input) : style.input}
+                            id="email"
+                            placeholder="Seu email..."
+                            type="text"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                        {errors.email && touched.email && (
+                            <div className="input-feedback">{errors.email}</div>
+                        )}
+                        <button
+                            style={style.button}
+                            type="button"
+                            className="outline"
+                            onClick={handleReset}
+                            disabled={!dirty || isSubmitting}
+                        >
+                            Resetar
+                        </button>
+                        <button
+                            type="submit"
+                            style={style.button}
+                            disabled={isSubmitting}>
+                            Enviar
+                        </button>
+                        <pre style={style.debug}>
+                            {JSON.stringify(props, null, 2)}
+                        </pre>
+                    </form>
+                );
+            }}
+        </Formik>
+    );
+}

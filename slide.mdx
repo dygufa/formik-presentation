@@ -1,0 +1,163 @@
+import { CodeSurfer } from "mdx-deck-code-surfer";
+import { Head, Notes, Appear } from "mdx-deck";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { SimpleForm } from "./components/form.mdx";
+
+
+export { default as theme } from "./theme";
+
+<Head>
+    <title>Formik</title>
+</Head>
+
+# Formik
+
+---
+
+# eu
+## @dygufa
+
+---
+
+<img style={{height: "50vh"}} src={require("file-loader!./assets/qr-code.png")}/>
+
+<Notes>Convidar pessoas a entrar no Slack do React SSA e a submeterem sugestões de apresentação.</Notes>
+
+---
+
+# De volta pro Formik
+
+<Appear>
+  <h2>O que é?</h2>
+  <h2>Por que usar?</h2>
+</Appear>
+
+<Notes>
+  O que é?
+  O Formik é uma biblioteca feita para facilitar o gerenciamento de estado de formulários.
+
+  Por que usar?
+  Nós poderiamos fazer o mesmo com o "state" do próprio React, certo? É melhor usar o Formik ou uma outra bilioteca semelhantes para diminuir verbosidade e garantir consistência de implementação através do uso de uma API bem documentada.
+</Notes>
+
+---
+
+<SimpleForm/>
+
+---
+
+<CodeSurfer
+  title="Formik com Render props"
+  code={require("!raw-loader!./samples/simple-form-render-props.jsx")}
+  showNumbers={false}
+  dark={true}
+  steps={[
+    {},
+    { range: [1, 12], notes: "Define propriedades do componente" },
+    { range: [13, 24], notes: "Faz destruct de props" },
+    { range: [28, 47], notes: "Definindo input" },
+    { lines: [41, 47], notes: "Forma menos verbosa" }
+  ]}
+/>
+
+---
+
+```jsx
+{
+  validate: async (values) => {
+    let errors = {};
+    const user = await getUserByEmail(values.email);
+    if (user !== null) {
+      errors.email = "Email já está sendo usado"
+    }
+    if (Object.keys(errors).length) {
+      throw errors;
+    }
+  }
+}
+```
+---
+
+<CodeSurfer
+  title="Formik com HOC"
+  code={require("!raw-loader!./samples/simple-form-hoc.jsx")}
+  showNumbers={false}
+  dark={true}
+  steps={[
+    {},
+    { range: [1, 23], notes: "Componente de formulário" },
+    { range: [25, 41], notes: "withFormik" }
+  ]}
+/>
+
+---
+
+# Formik 2.0
+
+---
+
+<CodeSurfer
+  title="Hooks (16.8)"
+  code={require("!raw-loader!./samples/hooks-basic.jsx")}
+  showNumbers={false}
+  dark={false}
+/>
+
+---
+
+<CodeSurfer
+  title="Formik com Hooks"
+  code={require("!raw-loader!./samples/simple-form-hooks.jsx")}
+  showNumbers={false}
+  dark={true}
+  steps={[
+    {},
+    { range: [2, 26], notes: "useFormik" },
+    { range: [3, 9] },
+    { range: [10, 22] },
+    { range: [23, 25] },
+    { range: [28, 30], notes: "getFieldProps" },
+    { range: [35, 41], notes: "Input" },
+  ]}
+/>
+
+---
+
+<Appear>
+  <h1>Problema</h1>
+  <h2>re-render até dizer chega</h2>
+  <hr/>
+  <h1>Solução</h1>
+  <h2>{`<FastField />`}</h2>
+</Appear>
+
+---
+
+import { TwitterTweetEmbed } from "react-twitter-embed";
+
+<TwitterTweetEmbed tweetId={"962114095481851910"} />
+
+```notes
+Aqui é possível verificar como o circulo de loading no canto superior direito para de ser renderizado enquanto a àrvore de componentes é montada
+```
+
+---
+
+## Concurrent Mode (React 16.x)
+
+<img src={require("file-loader!./assets/fiber_reconciliation.png")}/>
+
+---
+
+# React 16.x
+
+<img src={require("file-loader!./assets/react_roadmap.png")}/>
+
+---
+
+# Cabou
+
+![Cabou](https://media.giphy.com/media/tjMXCTZDsyFs4/giphy.gif)
+
+
